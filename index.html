@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunch Countdown 🍕</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .emoji {
+      font-size: 50px;
+      margin: 15px 0;
+    }
+
+    .countdown {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px 0;
+      color: #dc3545;
+    }
+
+    .response {
+      font-size: 20px;
+      margin: 20px 0;
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    button {
+      margin: 10px;
+      padding: 12px 18px;
+      border-radius: 30px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: white;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .join-btn {
+      background: #007bff;
+    }
+
+    .fun-btn {
+      background: #ffc107;
+    }
+
+    .reason-btn {
+      background: #28a745;
+    }
+
+    .joke-btn {
+      background: #dc3545;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Lunch Countdown 🍕</h1>
+  <div class="emoji">🍔🥗🌮</div>
+  <p>Hey Team! Lunch at 1 PM. Are you ready?</p>
+
+  <!-- Countdown Timer -->
+  <div class="countdown" id="countdown">Loading countdown...</div>
+
+  <!-- Response Section -->
+  <button class="join-btn" onclick="joinLunch()">I’m coming! 😋</button>
+  <button class="fun-btn" onclick="randomFun()">Give me a reason 🤔</button>
+  <button class="reason-btn" onclick="randomReason()">Why should I come? 😅</button>
+  <button class="joke-btn" onclick="randomJoke()">Tell me a joke 😂</button>
+
+  <div class="response" id="response">0 people are ready for lunch!</div>
+
+  <p class="footer">Remember: A full stomach = better quotes! 😂</p>
+
+  <script>
+    // Countdown Timer Logic
+    function updateCountdown() {
+      const now = new Date();
+      const lunchTime = new Date();
+      lunchTime.setHours(13, 0, 0, 0); // Set lunch time to 1 PM
+
+      const timeLeft = lunchTime - now;
+
+      if (timeLeft > 0) {
+        const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerText = `Time left: ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        document.getElementById('countdown').innerText = "It's lunch time! 🍽️";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+
+    // Live Response Counter
+    let lunchCount = 0;
+
+    function joinLunch() {
+      lunchCount++;
+      document.getElementById('response').innerText = `${lunchCount} people are ready for lunch!`;
+      notifyUser("Lunch Alert", "Another team member is ready for lunch! 🍕");
+    }
+
+    // Renewal Quoting-Themed Fun Reasons
+    function randomFun() {
+      const reasons = [
+        "Because quoting is better when you're not hangry! 😂",
+        "Because lunch is the ultimate renewal energy source! 🍕",
+        "Because skipping lunch might cause expired quotes! 😱",
+        "Because your appetite needs a renewal too! 🌮",
+        "Because teamwork improves with shared snacks! 🥗",
+        "Because a full stomach = accurate quotes! 😄",
+      ];
+
+      const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
+      document.getElementById('response').innerText = randomReason;
+    }
+
+    // Renewal Quoting-Themed Reasons
+    function randomReason() {
+      const reasons = [
+        "Because quoting on an empty stomach leads to errors! 🤔",
+        "Because lunch is the only thing that doesn't need approval! 😂",
+        "Because you can't renew your energy without food! 🍽️",
+        "Because skipping lunch might cause bugs in your quotes! 🐞",
+        "Because a happy belly = happy quotes! 😊",
+      ];
+
+      const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
+      document.getElementById('response').innerText = randomReason;
+    }
+
+    // Renewal Quoting-Themed Jokes
+    function randomJoke() {
+      const jokes = [
+        "Why did the quote go to lunch? It needed a renewal! 😂",
+        "Why don't quotes skip lunch? Because hungry quotes expire faster! 🥗",
+        "Why did the renewal specialist bring a sandwich to work? To avoid quoting on an empty stomach! 🥪",
+        "What do quotes and lunch have in common? Both need to be delivered on time! 🍕",
+        "Why did the renewal quote refuse to eat? It was already full of data! 😂",
+      ];
+
+      const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+      document.getElementById('response').innerText = randomJoke;
+    }
+
+    // Notification Logic
+    function notifyUser(title, message) {
+      if (Notification.permission === "granted") {
+        new Notification(title, { body: message });
+      } else if (Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+          if (permission === "granted") {
+            new Notification(title, { body: message });
+          }
+        });
+      }
+    }
+
+    // Request Notification Permission on Load
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+  </script>
+
+</body>
+</html>
