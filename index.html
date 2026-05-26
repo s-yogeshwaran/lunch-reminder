@@ -84,7 +84,7 @@
 
   <h1>Lunch Countdown 🍕</h1>
   <div class="emoji">🍔🥗🌮</div>
-  <p>Hey Team! Lunch at 1 PM. Are you ready?</p>
+  <p>Hey Guys! Lunch Time. Are you ready?</p>
 
   <!-- Countdown Timer -->
   <div class="countdown" id="countdown">Loading countdown...</div>
@@ -95,7 +95,7 @@
   <button class="reason-btn" onclick="randomReason()">Why should I come? 😅</button>
   <button class="joke-btn" onclick="randomJoke()">Tell me a joke 😂</button>
 
-  <div class="response" id="response">0 people are ready for lunch!</div>
+  <!-- <div class="response" id="response">0 people are ready for lunch!</div> -->
 
   <p class="footer">Remember: A full stomach = better quotes! 😂</p>
 
@@ -104,7 +104,7 @@
     function updateCountdown() {
       const now = new Date();
       const lunchTime = new Date();
-      lunchTime.setHours(13, 0, 0, 0); // Set lunch time to 1 PM
+      lunchTime.setHours(13, 10, 0, 0); // Set lunch time to 1 PM
 
       const timeLeft = lunchTime - now;
 
